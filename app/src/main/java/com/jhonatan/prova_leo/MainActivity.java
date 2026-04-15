@@ -9,9 +9,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class MainActivity extends AppCompatActivity {
 
-    private EditText editNome, editCodigo, editPreco, editQuantidade;
+    private TextInputEditText editNome, editCodigo, editPreco, editQuantidade;
     private Button btnSalvar, btnVerLista;
     private ProdutoDatabase db;
 
@@ -20,10 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicializar Banco de Dados
         db = ProdutoDatabase.getInstancia(this);
 
-        // Referenciar componentes da UI
         editNome = findViewById(R.id.editNome);
         editCodigo = findViewById(R.id.editCodigo);
         editPreco = findViewById(R.id.editPreco);
@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvar);
         btnVerLista = findViewById(R.id.btnVerLista);
 
-        // Clique no botão Salvar
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,12 +38,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Clique no botão Ver Lista (Vai para a próxima tela)
         btnVerLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // O Intent para a Listagem será implementado na Parte 8
-                Toast.makeText(MainActivity.this, "Abrindo lista de produtos...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ListaProdutosActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         String precoStr = editPreco.getText().toString().trim();
         String quantStr = editQuantidade.getText().toString().trim();
 
-        // Validação: Nenhum campo pode estar em branco
         if (nome.isEmpty() || codigo.isEmpty() || precoStr.isEmpty() || quantStr.isEmpty()) {
             Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
             return;
@@ -65,13 +62,11 @@ public class MainActivity extends AppCompatActivity {
             double preco = Double.parseDouble(precoStr.replace(",", "."));
             int quantidade = Integer.parseInt(quantStr);
 
-            // Validação: Preço e quantidade positivos
             if (preco <= 0 || quantidade <= 0) {
                 Toast.makeText(this, "Preço e quantidade devem ser positivos!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Criar objeto e salvar no banco
             Produto produto = new Produto(nome, codigo, preco, quantidade);
             db.produtoDao().inserir(produto);
 
