@@ -44,6 +44,8 @@ Este é um aplicativo Android desenvolvido para modernizar a organização de um
 4. (Opcional) Verifique se o emulador ou dispositivo físico está configurado para a API 34 ou superior.
 5. Clique no botão **Run (Play)** no topo da IDE.
 
+![Demonstracao](gif.gif)
+
 ## 📝 Autor SrJhol
 
 Desenvolvido por **Jhonatan Mendes**.
