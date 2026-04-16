@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.jhonatan.prova_leo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.jhonatan.prova_leo"
         minSdk = 25
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
