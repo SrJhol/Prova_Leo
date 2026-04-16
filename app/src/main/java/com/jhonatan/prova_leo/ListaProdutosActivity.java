@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+/**
+ * Activity responsável por exibir a listagem de todos os produtos cadastrados.
+ */
 public class ListaProdutosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerProdutos;
@@ -20,25 +23,29 @@ public class ListaProdutosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_produtos);
 
+        // Inicializa a instância do banco de dados
         db = ProdutoDatabase.getInstancia(this);
+
+        // Mapeia os componentes do layout
         recyclerProdutos = findViewById(R.id.recyclerProdutos);
         btnVoltar = findViewById(R.id.btnVoltar);
 
-        // Configurar RecyclerView
+        // Configura o RecyclerView com um gerenciador de layout linear (lista vertical)
         recyclerProdutos.setLayoutManager(new LinearLayoutManager(this));
         
-        // Buscar produtos do banco
+        // Busca a lista de produtos diretamente do banco de dados
         List<Produto> lista = db.produtoDao().listarTodos();
         
-        // Configurar Adapter
+        // Inicializa o adaptador com os dados e conecta ao RecyclerView
         adapter = new ProdutoAdapter(lista);
         recyclerProdutos.setAdapter(adapter);
 
-        // Botão Voltar
+        // Configura o botão para fechar a tela atual e retornar à tela de cadastro
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Fecha a activity e volta para a anterior
+                // Finaliza esta activity, voltando automaticamente para a MainActivity
+                finish();
             }
         });
     }
